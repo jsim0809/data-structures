@@ -38,27 +38,24 @@ var LinkedList = function () {
   // Returns a boolean representing if
   // target is in linked list.
   list.contains = function (target) {
-    if (this.head !== null) {
-      var node = this.head;
-    } else {
-      return false;
-    }
-    var containsWithNode = function(target) {
-      // If the head value is equivalent to target
-      if (node.value === target) {
-        //  return true
-        return true;
-      }
-      // If the next node is null
-      if (node.next === null) {
-        //  return false
+
+    // Checks current node and matches with target
+    var checkNode = function(node) {
+      // If node pass was null, we've reached the tail
+      if (node === null) {
         return false;
       }
-      // Return the value of calling contains on the next node
-      node = node.next;
-      return containsWithNode(target);
+      // If node contains target
+      if (node.value === target) {
+        // Were done
+        return true;
+      }
+      // Otherwise, check the next node
+      return checkNode(node.next);
     };
-    return containsWithNode(target);
+
+    // Start the recursion at head.
+    return checkNode(this.head);
   };
 
   return list;
@@ -75,7 +72,7 @@ var Node = function (value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
- *   addToTail: constant time
- *   removeHead: constant time
+ *   addToTail: O(1)
+ *   removeHead: O(1)
  *   contains: O(n)
  */
