@@ -21,6 +21,18 @@ var LinkedList = function() {
   // Pops off the head and returns its value.
   // The second value is now the head
   list.removeHead = function() {
+    // If the list is empty
+    if (this.head === null) {
+      //  Return undefined
+      return undefined;
+    }
+    // Make a result variable
+    // Set the result variable to the value of the head
+    var headValue = this.head.value;
+    // Set the head to the second node.
+    this.head = this.head.next;
+    // Return the result variable.
+    return headValue;
   };
   // Returns a boolean representing if
   // target is in linked list.
