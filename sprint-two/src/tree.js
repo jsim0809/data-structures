@@ -20,10 +20,21 @@ treeMethods.addChild = function(value) {
 };
 
 treeMethods.contains = function(target) {
+  if (target === this.value) {
+    return true;
+  }
+  for (var i = 0; i < this.children.length; i++) {
+    if (this.children[i].contains(target)) {
+      return true;
+    }
+  }
+  return false;
 };
 
 
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ *  addChild: O(1)
+ *  contains: O(n), where n represents the size of the overall Tree (and not the depth of the tree or the input size, for example).
  */
