@@ -3,14 +3,20 @@ var Tree = function(value) {
   newTree.value = value;
 
   // your code here
-  newTree.children = null;  // fix me
+  newTree.children = [];
+
+  // Make newTree tree-like
+  _.extend(newTree, treeMethods);
 
   return newTree;
 };
 
 var treeMethods = {};
 
+// Adds new child tree containing value into caller's children array
 treeMethods.addChild = function(value) {
+  var child = Tree(value);
+  this.children.push(child);
 };
 
 treeMethods.contains = function(target) {
