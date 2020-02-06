@@ -1,9 +1,9 @@
-var LinkedList = function() {
+var LinkedList = function () {
   var list = {};
   list.head = null;
   list.tail = null;
   // Appends value to tail and makes it the new tail
-  list.addToTail = function(value) {
+  list.addToTail = function (value) {
     // Create a new node
     var node = new Node(value);
     // If the current head is null,
@@ -20,7 +20,7 @@ var LinkedList = function() {
   };
   // Pops off the head and returns its value.
   // The second value is now the head
-  list.removeHead = function() {
+  list.removeHead = function () {
     // If the list is empty
     if (this.head === null) {
       //  Return undefined
@@ -34,15 +34,37 @@ var LinkedList = function() {
     // Return the result variable.
     return headValue;
   };
+
   // Returns a boolean representing if
   // target is in linked list.
-  list.contains = function(target) {
+  list.contains = function (target) {
+    if (this.head !== null) {
+      var node = this.head;
+    } else {
+      return false;
+    }
+    var containsWithNode = function(target) {
+      // If the head value is equivalent to target
+      if (node.value === target) {
+        //  return true
+        return true;
+      }
+      // If the next node is null
+      if (node.next === null) {
+        //  return false
+        return false;
+      }
+      // Return the value of calling contains on the next node
+      node = node.next;
+      return containsWithNode(target);
+    };
+    return containsWithNode(target);
   };
 
   return list;
 };
 
-var Node = function(value) {
+var Node = function (value) {
   var node = {};
 
   node.value = value;
