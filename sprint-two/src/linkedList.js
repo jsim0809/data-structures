@@ -4,6 +4,19 @@ var LinkedList = function() {
   list.tail = null;
   // Appends value to tail and makes it the new tail
   list.addToTail = function(value) {
+    // Create a new node
+    var node = new Node(value);
+    // If the current head is null,
+    if (this.head === null) {
+      //  then set the head to point to new node
+      this.head = node;
+    }
+    // Setting the pointer on the existing tail to the new node.
+    if (this.tail !== null) {
+      this.tail.next = node;
+    }
+    // Set tail to the new node
+    this.tail = node;
   };
   // Pops off the head and returns its value.
   // The second value is now the head
@@ -28,4 +41,7 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ *   addToTail: constant time
+ *   removeHead: constant time
+ *   contains: O(n)
  */
