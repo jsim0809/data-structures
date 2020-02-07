@@ -18,7 +18,7 @@ Graph.prototype.contains = function(node) {
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
   for (var k in this.storage[node]) {
-    delete this.storage[this.storage[node][k]][node];
+    delete this.storage[k][node];
   }
   delete this.storage[node];
 };
@@ -29,6 +29,8 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
 };
 
 // Connects two nodes in a graph by adding an edge between them.
+// Set the "value" of the edge key to point to the target node itself (for future convenience).
+// It would work just fine if it was any other placeholder value, like true or whatever.
 Graph.prototype.addEdge = function(fromNode, toNode) {
   this.storage[fromNode][toNode] = this.storage[toNode];
   this.storage[toNode][fromNode] = this.storage[fromNode];
@@ -42,11 +44,20 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
-
+  for (var k in this.storage) {
+    cb(k);
+  }
 };
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ *  addNode: O(1)
+ *  contains: O(1) (we use a hash table)
+ *  removeNode: O(n)
+ *  hasEdge: O(1)
+ *  addEdge: O(1)
+ *  removeEdge: O(1)
+ *  forEachNode: O(n)
  */
 
 
