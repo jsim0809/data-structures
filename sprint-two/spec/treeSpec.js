@@ -41,4 +41,13 @@ describe('tree', function() {
     expect(tree.contains(8)).to.equal(true);
   });
 
+  // Our custom Tree tests
+
+  it('should be able to store objects as children', function() {
+    tree.addChild(tree);
+    expect(tree.contains(tree)).to.equal(true);
+  });
+
+
+
 });
