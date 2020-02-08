@@ -1,9 +1,10 @@
+
+// Uses prototypal instantiation.
 var BinarySearchTree = function(value) {
 
   var newBinarySearchTree = Object.create(BinarySearchTree.prototype);
 
-  newBinarySearchTree.left;
-  newBinarySearchTree.right;
+  newBinarySearchTree.value = value;
 
   return newBinarySearchTree;
 
