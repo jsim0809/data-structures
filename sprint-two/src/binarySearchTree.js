@@ -53,6 +53,18 @@ BinarySearchTree.prototype.contains = function(value) {
   || (this.right && this.right.contains(value)));
 };
 
+BinarySearchTree.prototype.depthFirstLog = function(cb) {
+  // Execute cb on the value of the current node
+  cb(this.value);
+  // If left node exists, execute left node's depthFirstLog method with cb as argument
+  if (this.left) {
+    this.left.depthFirstLog(cb);
+  }
+  // If right node exists, execute cb on right node's depthFirstLog method with cb as argument
+  if (this.right) {
+    this.right.depthFirstLog(cb);
+  }
+};
 
 
 /*
