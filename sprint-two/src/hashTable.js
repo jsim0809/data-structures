@@ -42,10 +42,32 @@ HashTable.prototype.insert = function(k, v) {
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
+
+  var bucket = this._storage.get(index);
+  for (var i = 0; i < this._limit; i++) {
+    // Iterating through all tuples stored at bucket
+    if (bucket.get(i) !== undefined && bucket.get(i).get(0) === k) {
+      // Check if key matches and return associated value.
+      return bucket.get(i).get(1);
+    }
+  }
+
+  // If k not found, this function will automatically return undefined
+
 };
 
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
+  //
+  var bucket = this._storage.get(index);
+  for (var i = 0; i < this._limit; i++) {
+    // Iterating through all tuples stored at bucket
+    if (bucket.get(i) !== undefined && bucket.get(i).get(0) === k) {
+      // Check if key matches and return associated value.
+      bucket.set(i, undefined);
+      return;
+    }
+  }
 };
 
 
