@@ -52,4 +52,12 @@ describe('linkedList', function() {
   });
 
   // add more tests here to test the functionality of linkedList
+
+  it('should allow the user to add and search for undefined as a value', function() {
+    linkedList.addToTail(undefined);
+    expect(linkedList.contains(undefined)).to.equal(true);
+    linkedList.removeHead();
+    expect(linkedList.contains(undefined)).to.equal(false);
+  });
+
 });
