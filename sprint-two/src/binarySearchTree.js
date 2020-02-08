@@ -43,8 +43,14 @@ BinarySearchTree.prototype.insert = function(value) {
 
 };
 
-BinarySearchTree.prototype.depthFirstLog = function() {
-
+// Takes a value and returns a Boolean if value is contained in tree.
+BinarySearchTree.prototype.contains = function(value) {
+  // Both && and || result in the value of (exactly) one of their operands:
+  // A && B returns the value A if A can be coerced into false; otherwise, it returns B.
+  // A || B returns the value A if A can be coerced into true; otherwise, it returns B.
+  return Boolean((value === this.value)
+  || (this.left && this.left.contains(value))
+  || (this.right && this.right.contains(value)));
 };
 
 
