@@ -43,7 +43,7 @@ describe('tree', function() {
 
   // Our custom Tree tests
 
-  it('should be able to store objects as children', function() {
+  it('should be able to store objects (including other Trees) as children', function() {
     tree.addChild(tree);
     expect(tree.contains(tree)).to.equal(true);
   });

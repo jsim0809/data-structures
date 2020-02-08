@@ -1,21 +1,21 @@
 var Set = function() {
   var set = Object.create(setPrototype);
-  set._storage = {};
+  set._storage = new HashTable();
   return set;
 };
 
 var setPrototype = {};
 
 setPrototype.add = function(item) {
-  this._storage[item] = true;
+  this._storage.insert(item, true);
 };
 
 setPrototype.contains = function(item) {
-  return Boolean(this._storage[item]);
+  return Boolean(this._storage.retrieve(item));
 };
 
 setPrototype.remove = function(item) {
-  delete this._storage[item];
+  this._storage.remove(item);
 };
 
 /*
