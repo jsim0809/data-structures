@@ -74,6 +74,11 @@ HashTable.prototype.remove = function(k) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+  insert: O(n)
+  retrieve: O(n)
+  remove: O(n)
+
+  When we implement the expanding capability, all 3 time complexities will appromixate to O(1).
  */
 
 
