@@ -1,3 +1,6 @@
+// Does not allow duplicates of primitives.
+// Handles objects also. Checks equality by ===.
+
 var Set = function() {
   var set = Object.create(setPrototype);
   set._storage = new HashTable();

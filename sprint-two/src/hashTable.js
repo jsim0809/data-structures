@@ -87,18 +87,17 @@ HashTable.prototype.reHash = function(newLimit) {
   var oldStorage = this._storage;
   this._storage = newStorage;
   this._limit = newLimit;
+  this._count = 0;
   var hashTable = this;
   // pull out everything and ask the HashTable to insert it.
   oldStorage.each(function(bucket) {
     bucket.each(function(tuple) {
       if (tuple) {
-        hashTable.insert(tuple[0], tuple[1]);
+        hashTable.insert(tuple.get(0), tuple.get(1));
       }
     });
   });
 };
-
-
 
 /*
  * Complexity: What is the time complexity of the above functions?
