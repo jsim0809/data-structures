@@ -33,4 +33,20 @@ describe('set', function() {
     expect(set.contains('Jeremy')).to.equal(false);
   });
 
+  it('should allow strings as well as numbers (and differentiate between them', function() {
+    set.add(1);
+    set.add('1');
+    expect(set.contains('1')).to.equal(true);
+    set.remove('1');
+    expect(set.contains('1')).to.equal(false);
+    expect(set.contains(1)).to.equal(true);
+  });
+
+  it('should allow objects', function() {
+    var arr = [];
+    set.add(arr);
+    set.add([]);
+    expect(set.contains(arr)).to.equal(true);
+    expect(set.contains([])).to.equal(false);
+  });
 });

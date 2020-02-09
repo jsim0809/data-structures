@@ -1,43 +1,88 @@
-var LinkedList = function () {
-  var list = {};
-  list.head = null;
-  list.tail = null;
-  // Appends value to tail and makes it the new tail
-  list.addToTail = function (value) {
+class DoublyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
+
+  addToTail(val) {
     // Create a new node
-    var node = new Node(value);
+    var node = new Node(val);
     // If the current head is null,
     if (this.head === null) {
       //  then set the head to point to new node
       this.head = node;
     }
+
     // Setting the pointer on the existing tail to the new node.
+    // Set the 'previous' pointer on the new node to the existing tail.
     if (this.tail !== null) {
       this.tail.next = node;
+      node.previous = this.tail;
     }
+
     // Set tail to the new node
     this.tail = node;
-  };
-  // Pops off the head and returns its value.
-  // The second value is now the head
-  list.removeHead = function () {
+  }
+
+  addToHead(val) {
+    // Create a new node
+    var node = new Node(val);
+    // If the current head is null,
+    if (this.tail === null) {
+      //  then set the head to point to new node
+      this.tail = node;
+    }
+
+    // Setting the pointer on the existing tail to the new node.
+    // Set the 'previous' pointer on the new node to the existing tail.
+    if (this.head !== null) {
+      this.head.previous = node;
+      node.next = this.head;
+    }
+
+    // Set tail to the new node
+    this.head = node;
+  }
+
+  removeTail() {
+    // If the list is empty
+    if (this.tail === null) {
+      //  Return undefined
+      return;
+    }
+    // Make a result variable
+    // Set the result variable to the value of the tail
+    var tailValue = this.tail.value;
+    // Set the tail to the second last node.
+    this.tail = this.tail.previous || null;
+    if (this.tail) {
+      this.tail.next = null;
+    }
+    // Return the result variable.
+    return tailValue;
+  }
+
+  removeHead() {
     // If the list is empty
     if (this.head === null) {
       //  Return undefined
-      return undefined;
+      return;
     }
     // Make a result variable
     // Set the result variable to the value of the head
     var headValue = this.head.value;
     // Set the head to the second node.
     this.head = this.head.next || null;
+    if (this.head) {
+      this.head.previous = null;
+    }
     // Return the result variable.
     return headValue;
-  };
+  }
 
   // Returns a boolean representing if
   // target is in linked list.
-  list.contains = function (target) {
+  contains(target) {
 
     // Checks current node and matches with target
     var checkNode = function(node) {
@@ -56,10 +101,9 @@ var LinkedList = function () {
 
     // Start the recursion at head.
     return checkNode(this.head);
-  };
+  }
 
-  return list;
-};
+}
 
 var Node = function (value) {
   var node = {};
@@ -69,10 +113,3 @@ var Node = function (value) {
 
   return node;
 };
-
-/*
- * Complexity: What is the time complexity of the above functions?
- *   addToTail: O(1)
- *   removeHead: O(1)
- *   contains: O(n)
- */

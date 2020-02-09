@@ -3,7 +3,7 @@
 var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
-
+  this._count = 0;
 
   // Create empty arrays (buckets) at each index of storage
   for (var i = 0; i < this._limit; i++) {
@@ -38,6 +38,10 @@ HashTable.prototype.insert = function(k, v) {
 
   // If value at k has not been overwritten, then push new tuple.
   bucket.set(nextOpenIndex, tuple);
+  this._count++;
+  if (this._count > (this._limit * 0.75)) {
+    this.reHash(this._limit * 2);
+  }
 };
 
 HashTable.prototype.retrieve = function(k) {
@@ -65,12 +69,35 @@ HashTable.prototype.remove = function(k) {
     if (bucket.get(i) !== undefined && bucket.get(i).get(0) === k) {
       // Check if key matches and return associated value.
       bucket.set(i, undefined);
+      this._count--;
+      if (this._count < (this._limit * 0.25)) {
+        this.reHash(this._limit / 2);
+      }
       return;
     }
   }
 };
 
-
+HashTable.prototype.reHash = function(newLimit) {
+  var newStorage = LimitedArray(newLimit);
+  // Create empty arrays (buckets) at each index of storage
+  for (var i = 0; i < newLimit; i++) {
+    newStorage.set(i, LimitedArray(newLimit));
+  }
+  var oldStorage = this._storage;
+  this._storage = newStorage;
+  this._limit = newLimit;
+  this._count = 0;
+  var hashTable = this;
+  // pull out everything and ask the HashTable to insert it.
+  oldStorage.each(function(bucket) {
+    bucket.each(function(tuple) {
+      if (tuple) {
+        hashTable.insert(tuple.get(0), tuple.get(1));
+      }
+    });
+  });
+};
 
 /*
  * Complexity: What is the time complexity of the above functions?
