@@ -17,6 +17,7 @@ var treeMethods = {};
 treeMethods.addChild = function(value) {
   var child = Tree(value);
   this.children.push(child);
+  child.parent = this;
 };
 
 treeMethods.contains = function(target) {
@@ -30,6 +31,12 @@ treeMethods.contains = function(target) {
   }
   return false;
 };
+
+treeMethods.removeParent = function() {
+  this.parent.children.splice(this.parent.children.indexOf(this), 1);
+  this.parent = undefined;
+};
+
 
 
 

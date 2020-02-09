@@ -48,6 +48,14 @@ describe('tree', function() {
     expect(tree.contains(tree)).to.equal(true);
   });
 
-
+  it('should add and remove parent property properly', function() {
+    tree.addChild(1);
+    tree.addChild(2);
+    tree.children[0].addChild(3);
+    var child = tree.children[0].children[0];
+    child.removeParent();
+    expect(child.parent).to.equal(undefined);
+    expect(tree.children[0].children).to.eql([]);
+  });
 
 });
